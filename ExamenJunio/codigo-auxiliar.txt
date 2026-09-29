@@ -1,0 +1,84 @@
+/El método para leer un fichero ya está incluido en el proyecto del examen
+
+
+/* ********************************************************************************************
+ * Código para generar un tablero de tamaño 4
+ * con valores 0, 1 (0=no premio, 1=premio) en posiciones aleatorias
+ **********************************************************************************************/
+	private int[] tablero;
+	private static int DIM = 4;
+
+
+	private void generarTablero() {  //0:no premio ; 1:premio
+		tablero = new int[DIM];
+		for (int i = 0; i < DIM; i++) {
+			tablero[i] = 0;   /* Inicialmente no hay ningún premio */
+		}
+		int posicion = (int) (Math.random() * DIM);
+		tablero[posicion] = 1; //* Se coloca el premio
+		mostrarConsola();
+	}
+
+	private void mostrarConsola() {
+		for (int i = 0; i < DIM; i++) {
+			System.out.print(tablero[i] + " ");
+		}
+		System.out.println("");
+	}
+
+ 
+/******************************************************************************************************************
+  * Método que redefine toString
+******************************************************************************************************************** */
+
+public String toString() {
+		String strArticulo;
+		strArticulo = this.tipo + " - " + this.denominacion + " - " + this.precio + " €";
+		if (this.unidades != 0) {
+			strArticulo += " (" + this.unidades + " uds." + ")";
+		}
+		return strArticulo;
+	}	
+	
+ 
+/******************************************************************************************************************
+  * Código para quitar la imagen de un componente 
+******************************************************************************************************************** */
+   componente.setIcon(null);	
+	
+ 
+/******************************************************************************************************************
+  * Código para crear y mostrar un diálogo
+******************************************************************************************************************** */
+ClaseDialogo dialogo = new ClaseDialogo();
+dialogo.setVisible(true);
+
+
+/******************************************************************************************************************
+  * Método para cargar la ayuda
+******************************************************************************************************************** */
+
+private void cargaAyuda(){
+
+   URL hsURL;
+   HelpSet hs;
+
+    try {
+	    	File fichero = new File("help/ayuda.hs");
+	    	hsURL = fichero.toURI().toURL();
+	        hs = new HelpSet(null, hsURL);
+	      }
+
+    catch (Exception e){
+      System.out.println("Ayuda no encontrada");
+      return;
+   }
+
+   HelpBroker hb = hs.createHelpBroker();
+   hb.initPresentation();
+
+   hb.enableHelpKey(getRootPane(),"alias html introduccion", hs);
+   hb.enableHelpOnButton(componente, "alias html introduccion", hs);
+   hb.enableHelp(componente, "alias html concreto", hs);
+ }
+
